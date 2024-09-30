@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager / About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
+            color: #ffffff;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .today_task{
+            text-decoration: none;
+            color:white;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: #282828;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            flex-grow: 1;
+            font-weight: bold;
+        }
+
+        .icons span {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .add-task {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-task-icon {
+            margin-right: 5px;
+            font-size: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            color: white;
+            cursor: pointer;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: #363636;
+        }
+        .menu-item.active {
+            background-color: #363636;
+        }
+
+        .menu-icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu-text {
+            flex-grow: 1;
+        }
+
+        .menu-count {
+            background-color: #363636;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.8em;
+        }
+
+        .section-title {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            color: #777;
+            margin: 20px 0 10px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .task-checkbox {
+            margin-right: 10px;
+        }
+
+        .add-task-button {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .about-us {
+            padding: 20px;
+            color: #ffffff;
+            background-color: #1f1f1f;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 80px;
+        }
+
+        .team-member {
+            background-color: #282828;
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(33.333% - 20px);
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(142, 129, 64, 0.537);
+        }
+
+        .team-member:nth-child(2) {
+            transform: translateY(-20px);
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .team-member h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #db4c3f;
+        }
+
+        .member-role {
+            font-style: italic;
+            color: #888;
+            margin: 5px 0 15px;
+        }
+
+        .member-description {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .team-member:nth-child(2) {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="user-info">
+                <div class="user-avatar"><img src="naruto2.jpeg" alt="Naruto"></div>
+                <span class="user-name">Naruto Uzumaki</span>
+                <div class="icons">
+                    <span>🔔</span>
+                    <span>⚙</span>
+                </div>
+            </div>
+            <button class="add-task">
+                <span class="add-task-icon">+</span>
+                Add task
+            </button>
+
+            <div class="menu-item">
+                <span class="menu-icon">📥</span>
+                <span class="menu-text">Inbox</span>
+                <span class="menu-count">4</span>
+            </div>
+            <a href="index.html" class="today_task">
+                <div class="menu-item">
+                    <span class="menu-icon">📅</span>
+                    <span class="menu-text">Today</span>
+                    <span class="menu-count">3</span>
+                </div>
+            </a>
+            <div class="menu-item">
+                <span class="menu-icon">📆</span>
+                <span class="menu-text">Upcoming</span>
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">🏷️</span>
+                <span class="menu-text">Filters & Labels</span>
+            </div>
+            <div class="menu-item active">
+                <span class="menu-icon">👪</span>
+                <span class="menu-text">About Us</span>
+            </div>
+            <div class="section-title">My Projects</div>
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">Home 🏠</span>
+                <span class="menu-count">4</span>
+            </div>
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">My work 🎯</span>
+                <span class="menu-count">5</span>
+            </div>
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">Education 📚</span>
+                <span class="menu-count">3</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1> <center>About Us</center></h1>
+            </header>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="https://cdn.pixabay.com/photo/2024/03/27/16/06/ai-generated-8659385_1280.jpg" alt="Team Member 1" class="member-image">
+                    <h2>Rahul</h2>
+                    <p class="member-role"></p>
+                    <p class="member-description">Rahul is a visionary software developer with vast experience in productivity software. He co-founded Tasknimo with the goal of making task management simple and efficient for everyone.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://i.pinimg.com/736x/0d/72/62/0d7262c6331581b747aea5e70a343fa2.jpg" alt="Team Member 2" class="member-image">
+                    <h2>Rachit Goyal</h2>
+                    <p class="member-role">Team Lead</p>
+                    <p class="member-description">Rachit is a talented developer with a passion for creating intuitive user interfaces. He leads our development team in building robust and user-friendly features for Tasknimo.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOJWFwfzndBtCEsAHsZ_bwkC7pO6MmaVBJeQ&s" alt="Team Member 3" class="member-image">
+                    <h2>Rahul Kumar Goyal</h2>
+                    <p class="member-role"></p>
+                    <p class="member-description">Rahul brings creativity and user-centered design principles to Tasknimo.
+                        With his innovative approach, he consistently delivers intuitive and visually stunning solutions that enhance user experience.
+                        </p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
