@@ -1,0 +1,130 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Tasknimo</title>
+      <link rel="icon" type="image/png" href="./favicon.png">
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      <div class="container">
+        <div class="sidebar">
+          <div class="user-info">
+              <div class="user-avatar"><img src="naruto2.jpeg" alt="Naruto"></div>
+              <span class="user-name">Naruto Uzumaki</span>
+              <div class="icons">
+                  <span class="icon-1">🔔</span>
+                  <span class="icon-1">⚙</span>
+              </div>
+          </div>
+          <button class="add-task">
+              <span class="add-task-icon">+</span>
+              Add task
+          </button>
+          
+          <div class="menu-item">
+              <span class="menu-icon">📥</span>
+              <span class="menu-text">Inbox</span>
+              <span class="menu-count">4</span>
+          </div>
+          <div class="menu-item active">
+              <span class="menu-icon">📅</span>
+              <span class="menu-text">Today</span>
+              <span class="menu-count">3</span>
+          </div>
+          <div class="menu-item">
+              <span class="menu-icon">📆</span>
+              <span class="menu-text">Upcoming</span>
+          </div>
+          <div class="menu-item">
+            <span class="menu-icon">🏷️</span>
+            <span class="menu-text">Filters & Labels</span>
+          </div>
+          <a href="about_us.html" class="about_us_link">
+            <div class="menu-item">
+              <span class="menu-icon">👪</span>
+              <span class="menu-text">About Us</span>
+            </div>
+          </a>
+          <div class="section-title">My Projects</div>
+          <div class="menu-item project">
+              <span class="menu-icon">#</span>
+              <span class="menu-text">Home 🏠</span>
+              <span class="menu-count">4</span>
+          </div>
+          <div class="menu-item project">
+              <span class="menu-icon">#</span>
+              <span class="menu-text">My work 🎯</span>
+              <span class="menu-count">5</span>
+          </div>
+          <div class="menu-item project">
+              <span class="menu-icon">#</span>
+              <span class="menu-text">Education 📚</span>
+              <span class="menu-count">3</span>
+          </div>
+      </div>
+      <div class="main-content">
+        <div class="header">
+          <div class="date">📅
+              <span> Monday (30-09-2024)</span>
+          </div>
+          <div class="search-box">
+            <div class="search-input-box">
+              <button class="search-btn">
+                <span><input type="text" class="search" placeholder="Search"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="task-list">
+            <li class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text">Go to gym</span>
+                  <button class="priority-btn">
+                    <span class="priority-icon">🔔</span> Reminder
+                  </button>
+                  <button class="priority-btn">
+                    <span class="priority-icon">🚩</span> Priority
+                  </button>
+                  <button class="update_delete">Update</button>&nbsp;&nbsp;
+                  <button class="update_delete">Delete</button>
+                
+                <span class="task-project">Inbox</span>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text">Study for Maths End Term</span>
+                <button class="priority-btn">
+                  <span class="priority-icon">🔔</span> Reminder
+                </button>
+                <button class="priority-btn">
+                  <span class="priority-icon">🚩</span> Priority
+                </button>
+                  <button class="update_delete">Update</button>&nbsp;&nbsp;
+                  <button class="update_delete">Delete</button>
+                
+                <span class="task-project">Inbox</span>
+
+            </li>
+            <li class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text">Have Lunch</span>
+                <button class="priority-btn">
+                  <span class="priority-icon">🔔</span> Reminder
+                </button>
+                <button class="priority-btn">
+                  <span class="priority-icon">🚩</span> Priority
+                </button>
+                  <button class="update_delete">Update</button>&nbsp;&nbsp;
+                  <button class="update_delete ">Delete</button>
+                
+                <span class="task-project">Inbox</span>
+              
+            </li>
+        </ul>
+        <button class="add-task-btn">Add task</button>
+    </div>
+      </div>
+  </body>
+  </html>
