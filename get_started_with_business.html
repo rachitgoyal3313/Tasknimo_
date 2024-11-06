@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Features - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1f1f1f;
+            --text-color: #ffffff;
+            --accent-color: #E34935;
+            --secondary-bg: #171717;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 76px 0 0 0;
+        }
+
+        .home_link:hover {
+            color: white;
+        }
+
+        nav {
+            background-color: var(--secondary-bg) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-color);
+        }
+
+        .navbar-link.active {
+            color: white !important;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .navbar-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .search-box {
+            background-color: var(--secondary-bg);
+            border: 1px solid #333;
+            color: var(--text-color);
+        }
+
+        .primary-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .nav-logo {
+            color: var(--text-color);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .enterprise-section {
+            text-align: center;
+            padding: 4rem 0;
+            background-color: var(--secondary-bg);
+            margin-top: 4rem;
+        }
+
+        .enterprise-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .enterprise-section p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link active" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1>Transform Your Business with Tasknimo</h1>
+                <p>Enterprise-grade features designed to enhance team productivity and collaboration</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Team Collaboration</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-team-line"></i>Unlimited team members</li>
+                            <li><i class="ri-group-line"></i>Role-based permissions</li>
+                            <li><i class="ri-chat-3-line"></i>Real-time communication</li>
+                            <li><i class="ri-folder-shared-line"></i>Shared workspaces</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Advanced Security</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-shield-check-line"></i>SSO Integration</li>
+                            <li><i class="ri-lock-password-line"></i>2FA authentication</li>
+                            <li><i class="ri-database-2-line"></i>Data encryption</li>
+                            <li><i class="ri-file-list-3-line"></i>Audit logs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Premium Support</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-customer-service-2-line"></i>24/7 priority support</li>
+                            <li><i class="ri-user-star-line"></i>Dedicated manager</li>
+                            <li><i class="ri-graduation-cap-line"></i>Team training</li>
+                            <li><i class="ri-guide-line"></i>Custom onboarding</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Workflow Automation</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-settings-line"></i>Custom workflows</li>
+                            <li><i class="ri-router-line"></i>API access</li>
+                            <li><i class="ri-rocket-line"></i>Automated tasks</li>
+                            <li><i class="ri-tools-line"></i>Integration tools</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Advanced Analytics</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-bar-chart-line"></i>Performance metrics</li>
+                            <li><i class="ri-line-chart-line"></i>Team analytics</li>
+                            <li><i class="ri-pie-chart-line"></i>Custom reports</li>
+                            <li><i class="ri-download-cloud-line"></i>Data export</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <h3>Enterprise Tools</h3>
+                        <ul class="feature-list">
+                            <li><i class="ri-global-line"></i>Multi-region support</li>
+                            <li><i class="ri-store-line"></i>Resource management</li>
+                            <li><i class="ri-link-m"></i>Custom integrations</li>
+                            <li><i class="ri-cloud-line"></i>Cloud deployment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enterprise Section -->
+        <section class="enterprise-section">
+            <div class="container">
+                <h2>Ready to get started?</h2>
+                <p>Contact our sales team to learn more about Tasknimo Business and find the perfect solution for your organization.</p>
+                <a href="contact_sales.html" class="contact-button">Contact Sales</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tasknimo. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function goBack() {
+        window.history.back();
+    }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    </script>
+</body>
+</html>

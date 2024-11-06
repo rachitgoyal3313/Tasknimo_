@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Premium - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1f1f1f;
+            --text-color: #ffffff;
+            --accent-color: #E34935;
+            --secondary-bg: #171717;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 76px 0 0 0;
+        }
+
+        .home_link:hover {
+            color: white;
+        }
+
+        nav {
+            background-color: var(--secondary-bg) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover, .navbar-link.active {
+            color: var(--text-color);
+        }
+
+        .navbar-link.active {
+            color: white !important;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .navbar-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .search-box {
+            background-color: var(--secondary-bg);
+            border: 1px solid #333;
+            color: var(--text-color);
+        }
+
+        .primary-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .nav-logo {
+            color: var(--text-color);
+        }
+
+        .upgrade-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(180deg, var(--secondary-bg), var(--bg-color));
+            border-radius: 16px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-comparison {
+            background-color: var(--secondary-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 1rem;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .comparison-table th:first-child,
+        .comparison-table td:first-child {
+            text-align: left;
+        }
+
+        .comparison-table tr:not(:last-child) {
+            border-bottom: 1px solid #333;
+        }
+
+        .check-icon {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            background-color: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent-color);
+            position: relative;
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .feature-list li {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .testimonials {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--secondary-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.2;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--secondary-bg);
+            margin-top: 2rem;
+        }
+
+        .upgrade-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+            color: white;
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link active" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="upgrade-container">
+        <section class="hero-section">
+            <h1>Experience the Full Power of Tasknimo</h1>
+            <p class="mb-4">Join thousands of professionals who have upgraded to Premium for enhanced productivity</p>
+        </section>
+
+        <section class="feature-comparison">
+            <h2 class="text-center mb-4">Compare Plans</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free</th>
+                        <th>Premium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Projects</td>
+                        <td>Up to 5</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td>Task Filters</td>
+                        <td>Basic</td>
+                        <td>Advanced</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Labels</td>
+                        <td><i class="ri-close-line text-secondary"></i></td>
+                        <td><i class="ri-check-line check-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td>Standard</td>
+                        <td>Priority</td>
+                    </tr>
+                    <tr>
+                        <td>Location Reminders</td>
+                        <td><i class="ri-close-line text-secondary"></i></td>
+                        <td><i class="ri-check-line check-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>File Storage</td>
+                        <td>100MB</td>
+                        <td>Unlimited</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Monthly</h3>
+                <div class="price-amount">$9.99 <span class="price-period">/month</span></div>
+                <ul class="feature-list">
+                    <li><i class="ri-check-line"></i>All Premium Features</li>
+                    <li><i class="ri-check-line"></i>Cancel Anytime</li>
+                    <li><i class="ri-check-line"></i>30-Day Trial</li>
+                </ul>
+                <a href="#" class="upgrade-button">Choose Monthly</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="featured-tag">Best Value</span>
+                <h3>Annual</h3>
+                <div class="price-amount">$7.49 <span class="price-period">/month</span></div>
+                <p class="text-secondary">Billed annually ($89.88)</p>
+                <ul class="feature-list">
+                    <li><i class="ri-check-line"></i>All Premium Features</li>
+                    <li><i class="ri-check-line"></i>Save 25%</li>
+                    <li><i class="ri-check-line"></i>Priority Support</li>
+                </ul>
+                <a href="#" class="upgrade-button">Choose Annual</a>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Lifetime</h3>
+                <div class="price-amount">$299 <span class="price-period">/once</span></div>
+                <ul class="feature-list">
+                    <li><i class="ri-check-line"></i>All Premium Features</li>
+                    <li><i class="ri-check-line"></i>One-time Payment</li>
+                    <li><i class="ri-check-line"></i>VIP Support</li>
+                </ul>
+                <a href="#" class="upgrade-button">Choose Lifetime</a>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Premium Users Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"The premium features have completely transformed how I manage my projects. The unlimited storage and priority support are game-changers."</p>
+                    <p class="text-secondary">- Sarah Johnson, Product Manager</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Location-based reminders and custom labels have made my task management so much more efficient. Worth every penny!"</p>
+                    <p class="text-secondary">- Michael Chen, Freelancer</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The advanced filters help me stay organized with multiple projects. I can't imagine going back to the free version."</p>
+                    <p class="text-secondary">- Emma Davis, Team Lead</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tasknimo. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease-out';
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease-out';
+            observer.observe(card);
+        });
+
+        
+        
+        document.querySelectorAll('.comparison-table tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(227, 73, 53, 0.1)';
+            });
+            row.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'transparent';
+            });
+        });
+
+        
+        function goBack() {
+        window.history.back();
+        }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <title>Filters & Labels - Todoist Clone</title>
+    <style>
+        body, html {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            background-color: #1f1f1f;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #282828;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .sidebar-item {
+            padding: 1px 0;
+            color: #ffffffb3;
+            text-decoration: none;
+        }
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: #363636;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .user-avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f06a6a;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        .user-name {
+            flex-grow: 1;
+            font-size: large;
+            cursor: pointer;
+        }
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+        .icon-1 {
+            cursor: pointer;
+        }
+        .add-task {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .add-task-icon {
+            margin-right: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1;
+            text-align: center;
+        }
+        .menu-item {
+            padding: 8px 10px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .menu-item:hover {
+            background-color: #2c2c2c;
+        }
+        .menu-item.active {
+            background-color: #363636;
+        }
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        .menu-text {
+            flex-grow: 1;
+        }
+        .menu-count {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.8em;
+        }
+        .section-title {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+        }
+        .project {
+            display: flex;
+            align-items: center;
+        }
+        .project-icon {
+            margin-right: 10px;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #363636;
+            color: #9a9a9a;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            margin-bottom: 10px;
+        }
+        .back-button:hover {
+            background-color: #454545;
+            color: #ffffff;
+        }
+        .back-button svg {
+            margin-right: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .add-btn {
+            background-color: transparent;
+            border: 1px solid #ffffff50;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .item-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .item:hover {
+            background-color: #363636;
+        }
+        .item-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .item-name {
+            flex-grow: 1;
+        }
+        .item-actions {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .item:hover .item-actions {
+            opacity: 1;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            color: #ffffff80;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .action-btn:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <button class="back-button" onclick="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Back
+            </button>   
+            <div class="user-info">
+                <div class="user-avatar"><img src="images/naruto2.jpeg" alt="Naruto"></div>
+                <span class="user-name">Naruto Uzumaki</span>
+                <div class="icons">
+                    <span class="icon-1">🔔</span>
+                    <span class="icon-1">⚙</span>
+                </div>
+            </div>
+            <button class="add-task">
+                <span class="add-task-icon">+</span>
+                Add task
+            </button>
+            <a href="inbox.html" class="sidebar-item">
+                <div class="menu-item">
+                    <span class="menu-icon">📥</span>
+                    <span class="menu-text">Inbox</span>
+                    <span class="menu-count">4</span>
+                </div>
+            </a>
+            <a href="today_tasks.html" class="sidebar-item">
+                <div class="menu-item">
+                    <span class="menu-icon">📅</span>
+                    <span class="menu-text">Today</span>
+                    <span class="menu-count">3</span>
+                </div>
+            </a>
+            <a href="upcoming.html" class="sidebar-item">
+                <div class="menu-item">
+                    <span class="menu-icon">📆</span>
+                    <span class="menu-text">Upcoming</span>
+                </div>
+            </a>
+            <div class="menu-item active">
+                <span class="menu-icon">🏷️</span>
+                <span class="menu-text">Filters & Labels</span>
+            </div>
+            
+            <div class="section-title">My Projects</div>
+            <a href="home.html" class="sidebar-item">
+                <div class="menu-item project">
+                    <span class="menu-icon">#</span>
+                    <span class="menu-text">Home 🏠</span>
+                    <span class="menu-count">4</span>
+                </div>
+            </a>
+            <a href="my_work.html" class="sidebar-item">
+                <div class="menu-item project">
+                    <span class="menu-icon">#</span>
+                    <span class="menu-text">My work 🎯</span>
+                    <span class="menu-count">5</span>
+                </div>
+            </a>
+            <a href="education.html" class="sidebar-item">
+                <div class="menu-item project">
+                    <span class="menu-icon">#</span>
+                    <span class="menu-text">Education 📚</span>
+                    <span class="menu-count">3</span>
+                </div>
+            </a>
+        </div>
+        <main class="main-content">
+            <h1>Filters & Labels</h1>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Filters</h2>
+                    <button class="add-btn">Add filter</button>
+                </div>
+                <ul class="item-list" id="filter-list">
+                   
+                </ul>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Labels</h2>
+                    <button class="add-btn">Add label</button>
+                </div>
+                <ul class="item-list" id="label-list">
+                    
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const filters = [
+            { id: 1, name: "Priority 1", icon: "🔴" },
+            { id: 2, name: "This week", icon: "📅" },
+            { id: 3, name: "Assigned to me", icon: "👤" }
+        ];
+
+        const labels = [
+            { id: 1, name: "Work", color: "#4073ff" },
+            { id: 2, name: "Personal", color: "#ff9933" },
+            { id: 3, name: "Urgent", color: "#db4c3f" }
+        ];
+
+        function createListItem(item, type) {
+            const li = document.createElement('li');
+            li.className = 'item';
+            li.innerHTML = `
+                <span class="item-icon" style="color: ${item.color || 'inherit'}">${item.icon || '🏷️'}</span>
+                <span class="item-name">${item.name}</span>
+                <div class="item-actions">
+                    <button class="action-btn" onclick="editItem('${type}', ${item.id})">✏️</button>
+                    <button class="action-btn" onclick="deleteItem('${type}', ${item.id})">🗑️</button>
+                </div>
+            `;
+            return li;
+        }
+
+        function renderList(items, listId, type) {
+            const list = document.getElementById(listId);
+            list.innerHTML = '';
+            items.forEach(item => {
+                list.appendChild(createListItem(item, type));
+            });
+        }
+
+
+        function goBack() {
+            window.history.back();
+        }
+
+        renderList(filters, 'filter-list', 'filter');
+        renderList(labels, 'label-list', 'label');
+
+    
+    </script>
+</body>
+</html>

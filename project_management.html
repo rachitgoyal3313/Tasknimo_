@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .home_link:hover{
+            color: white;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--bg-dark) 60%, #2a2220 100%);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-primary);
+        }
+
+        .search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+
+        nav {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-logo {
+            color: var(--text-primary);
+        }
+
+        .feature-card {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .quote-section {
+            background-color: var(--bg-darker);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-gradient py-5 mt-5">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold mb-4">
+                    Project Management
+                    <span style="color: var(--primary-color)">Simplified</span>
+                </h1>
+                <p class="lead text-secondary mb-4">
+                    Transform the way your team works with our intuitive project management tools.
+                    Built for teams of all sizes.
+                </p>
+                <a href="auth.html" class="btn primary-button">
+                    Start Managing Projects →
+                </a>
+                <p class="small text-muted mt-3">
+                    14-DAY FREE TRIAL • NO CREDIT CARD REQUIRED
+                </p>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-number">98%</div>
+                            <p>Project Completion Rate</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-number">2.5x</div>
+                            <p>Faster Project Delivery</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="stat-number">500K+</div>
+                            <p>Projects Managed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Why Choose Tasknimo for Project Management?</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Visual Project Tracking</h3>
+                            <p>Kanban boards, Gantt charts, and timeline views to visualize project progress at a glance.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">👥</div>
+                            <h3>Team Collaboration</h3>
+                            <p>Real-time updates, task assignments, and team chat to keep everyone aligned.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">📈</div>
+                            <h3>Resource Management</h3>
+                            <p>Track time, allocate resources, and manage workload distribution effectively.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="quote-section">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h2>"Tasknimo transformed our project management process. We've reduced meeting time by 50% and increased productivity significantly."</h2>
+                        <p class="mt-3">- Sarah Chen, Project Director at Tech Solutions Inc.</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <a href="auth.html" class="btn primary-button">Try It Free</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container text-center">
+                <h2 class="mb-4">Integrates With Your Favorite Tools</h2>
+                <p class="mb-5">Seamlessly connect with the tools your team already uses</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <img src="images/slack_white.png" alt="Integration logos" class="img-fluid" width="70px">&NonBreakingSpace;
+                        <img src="images/Microsoft_Office_Teams_(2018–present).svg.png" alt="Integration logos" class="img-fluid"  width="70px">&NonBreakingSpace;
+                        <img src="images/WhatsApp.svg.png" alt="Integration logos" class="img-fluid"  width="70px"> &NonBreakingSpace;
+                        <img src="images/Google_Meet_icon_(2020).svg.png" alt="Integration logos" class="img-fluid"  width="70px">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow');
+            } else {
+                nav.classList.remove('shadow');
+            }
+        });
+        
+        function goBack() {
+        window.history.back();
+        }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    
+    </script>
+</body>
+</html>

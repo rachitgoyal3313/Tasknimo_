@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .home_link:hover{
+            color: white;
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-primary);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+
+        nav {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .help-card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .help-icon {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .category-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .category-link:hover {
+            color: var(--primary-color);
+        }
+
+        .search-container {
+            background: linear-gradient(135deg, var(--bg-dark) 60%, #2a2220 100%);
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .help-search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+            padding: 15px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .popular-articles {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .article-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.2s ease;
+        }
+
+        .article-link:hover {
+            color: var(--primary-color);
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold" style="color: white;">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="mt-5">
+        <div class="search-container">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold mb-4">How can we help you?</h1>
+                <div class="d-flex justify-content-center">
+                    <input type="search" class="help-search-box" placeholder="Search for help articles...">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="help-card">
+                        <div class="help-icon">🚀</div>
+                        <h3>Getting Started</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="coming_soon.html" class="article-link">Quick Start Guide</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Creating Your First Task</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Setting Up Projects</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="help-card">
+                        <div class="help-icon">🔧</div>
+                        <h3>Account Settings</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="coming_soon.html" class="article-link">Managing Your Profile</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Subscription Options</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Security Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="help-card">
+                        <div class="help-icon">👥</div>
+                        <h3>Team Collaboration</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="coming_soon.html" class="article-link">Inviting Team Members</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Sharing Projects</a></li>
+                            <li><a href="coming_soon.html" class="article-link">Team Permissions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popular-articles">
+                <h2 class="mb-4">Popular Articles</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="coming_soon.html" class="article-link">How to use natural language input for quick task creation</a>
+                        <a href="coming_soon.html" class="article-link">Setting up location-based reminders</a>
+                        <a href="coming_soon.html" class="article-link">Integrating with other productivity tools</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="coming_soon.html" class="article-link">Using voice commands for hands-free task management</a>
+                        <a href="coming_soon.html" class="article-link">Creating custom workflows</a>
+                        <a href="coming_soon.html" class="article-link">Best practices for project organization</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow');
+            } else {
+                nav.classList.remove('shadow');
+            }
+        });
+        
+        function goBack() {
+        window.history.back();
+        }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    
+    </script>
+</body>
+</html>

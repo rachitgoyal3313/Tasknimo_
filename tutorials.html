@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .home_link:hover{
+            color: white;
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-primary);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+
+        nav {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-logo {
+            color: var(--text-primary);
+        }
+
+        .tutorial-card {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .tutorial-image {
+            border-radius: 8px 8px 0 0;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tutorial-tag {
+            background-color: rgba(227, 73, 53, 0.2);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.875rem;
+        }
+
+        .difficulty-badge {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.875rem;
+        }
+
+        .beginner {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .intermediate {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .advanced {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        <section class="py-5">
+            <h1 class="text-center mb-5">Learn Tasknimo Like a Pro</h1>
+            
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+                        <button class="btn primary-button">All Tutorials</button>
+                        <button class="btn navbar-link">Getting Started</button>
+                        <button class="btn navbar-link">Task Management</button>
+                        <button class="btn navbar-link">Team Collaboration</button>
+                        <button class="btn navbar-link">Integrations</button>
+                        <button class="btn navbar-link">Tips & Tricks</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="tutorial-card h-100">
+                        <img src="https://images.unsplash.com/photo-1521321205814-9d673c65c167?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Getting Started" class="tutorial-image w-100">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="tutorial-tag">Getting Started</span>
+                                <span class="difficulty-badge beginner">Beginner</span>
+                            </div>
+                            <h5 class="mb-3">Getting Started with Tasknimo</h5>
+                            <p class="text-secondary mb-4">Learn the basics of Tasknimo and set up your first project in under 10 minutes.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-secondary">15 min read</span>
+                                <a href="coming_soon.html" class="btn primary-button">Start Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="tutorial-card h-100">
+                        <img src="https://images.unsplash.com/photo-1700561571254-4fb2f1cbcbc8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGFzayUyMG1hbmFnZW1lbnR8ZW58MHx8MHx8fDA%3D" alt="Task Management" class="tutorial-image w-100">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="tutorial-tag">Task Management</span>
+                                <span class="difficulty-badge intermediate">Intermediate</span>
+                            </div>
+                            <h5 class="mb-3">Advanced Task Organization</h5>
+                            <p class="text-secondary mb-4">Master task organization with labels, priorities, and custom workflows.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-secondary">20 min read</span>
+                                <a href="coming_soon.html" class="btn primary-button">Start Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="tutorial-card h-100">
+                        <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRlYW0lMjBjb2xsYWJvcmF0aW9ufGVufDB8fDB8fHww" alt="Team Collaboration" class="tutorial-image w-100">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="tutorial-tag">Team Collaboration</span>
+                                <span class="difficulty-badge advanced">Advanced</span>
+                            </div>
+                            <h5 class="mb-3">Team Collaboration Mastery</h5>
+                            <p class="text-secondary mb-4">Learn how to effectively manage team projects and boost collaboration.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-secondary">25 min read</span>
+                                <a href="coming_soon.html" class="btn primary-button">Start Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow');
+            } else {
+                nav.classList.remove('shadow');
+            }
+        });
+        
+        function goBack() {
+        window.history.back();
+        }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    
+    </script>
+</body>
+</html>

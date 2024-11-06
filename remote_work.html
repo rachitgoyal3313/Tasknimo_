@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Work - Tasknimo</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .home_link:hover {
+            color: white;
+        }
+
+        .feature-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
+            padding: 24px;
+            margin: 15px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--bg-dark) 60%, #2a2220 100%);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-primary);
+        }
+
+        nav {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .nav-logo {
+            color: var(--text-primary);
+        }
+
+        .search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+
+        .benefit-card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #333;
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .tool-logo {
+            height: 70px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+
+        }
+
+        .tool-logo:hover {
+            opacity: 1;
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-gradient py-5 mt-5">
+            <div class="container text-center">
+                <h1 class="display-4 fw-bold mb-4">
+                    Empower Your Remote Team
+                </h1>
+                <p class="lead text-secondary mb-4">
+                    Keep your distributed team connected, productive, and aligned with Tasknimo's remote work solutions
+                </p>
+                <a href="auth.html" class="btn primary-button">
+                    Get Started For Free →
+                </a>
+                <p class="small text-muted mt-3">
+                    Join 10,000+ remote teams already using Tasknimo
+                </p>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="stat-number">300%</div>
+                            <p>Increase in team collaboration</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="stat-number">25+</div>
+                            <p>Remote work tools integrated</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="benefit-card">
+                            <div class="stat-number">92%</div>
+                            <p>Teams report better work-life balance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-center mb-5">Features Built for Remote Teams</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h3>Virtual Team Rooms</h3>
+                            <p>Create dedicated spaces for team collaboration with real-time updates and communication.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h3>Async Communication</h3>
+                            <p>Foster effective communication across time zones with asynchronous messaging and updates.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h3>Time Zone Management</h3>
+                            <p>Automatically adjust schedules and deadlines across different time zones for seamless collaboration.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h3>Digital Watercooler</h3>
+                            <p>Build team culture and connections with virtual social spaces and team-building activities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5 bg-darker">
+            <div class="container">
+                <h2 class="text-center mb-5">Remote Work Success Stories</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="testimonial-card">
+                            <img src="/api/placeholder/60/60" alt="Sarah Chen" class="testimonial-avatar">
+                            <h4>Sarah Chen</h4>
+                            <p class="text-secondary">Remote Team Lead at TechCo</p>
+                            <p>"Tasknimo has transformed how our global team collaborates. The async features and time zone management are game-changers."</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="testimonial-card">
+                            <img src="/api/placeholder/60/60" alt="Marcus Rodriguez" class="testimonial-avatar">
+                            <h4>Marcus Rodriguez</h4>
+                            <p class="text-secondary">Digital Nomad & Freelancer</p>
+                            <p>"As someone who works with clients worldwide, Tasknimo's remote work features help me stay organized and professional."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container text-center">
+                <h2 class="mb-5">Works With Your Favorite Remote Tools</h2>
+                <div class="row justify-content-center align-items-center g-4">
+                    <div class="col-6 col-md-3">
+                        <img src="images/slack_white.png" alt="Slack" class="tool-logo">
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <img src="images/zoom-logo-E60A52864C-seeklogo.com.png" alt="Zoom" class="tool-logo">
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <img src="images/Microsoft_Office_Teams_(2018–present).svg.png" alt="Microsoft Teams" class="tool-logo">
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <img src="images/Notion-logo.svg.png" alt="Notion" class="tool-logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow');
+            } else {
+                nav.classList.remove('shadow');
+            }
+        });
+        function goBack() {
+        window.history.back();
+        }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
+    
+    </script>
+</body>
+</html>

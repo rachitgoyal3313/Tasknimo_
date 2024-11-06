@@ -3,26 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasknimo - Sign Up / Sign In</title>
-    <link rel="icon" type="image/png" href="./favicon.png">
+    <title>Tasknimo - Log In/Sign Up</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            height: 100%;
-            background-color: #1f1f1f;
-            color: #fff;
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            padding-top: 76px; 
+        }
+
+        .home_link:hover {
+            color: white;
+        }
+
+        nav {
+            background-color: var(--bg-darker) !important;
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-link:hover {
+            color: var(--text-primary);
+        }
+
+        .navbar-link.active {
+            color: white !important;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .navbar-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .search-box {
+            background-color: var(--bg-darker);
+            border: 1px solid #333;
+            color: var(--text-primary);
+        }
+
+        .primary-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
+        }
+
+        .nav-logo {
+            color: var(--text-primary);
+        }
+
+        .content-wrapper {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            flex-grow: 1;
+            padding: 1rem;
+        }
+
+        .testimonial-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--bg-darker);
+            border-radius: 12px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--bg-dark) 60%, #2a2220 100%);
         }
 
         .page-container {
             display: flex;
-            width: 800px;
-            height: 500px;
-            background-color: #282828;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            width: 90%;
+            max-width: 800px;
+            height: calc(100vh - 200px);
+            background-color: #1e1e1e;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(142, 129, 64, 0.537);
@@ -37,59 +130,87 @@
             align-items: center;
             padding: 20px;
         }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .image-caption {
-            margin-top: 20px;
-            font-size: 18px;
-            text-align: center;
-            color: #db4c3f;
-        }
-
+        
         .auth-container {
-            flex: 1;
-            padding: 40px;
+            background-color: var(--bg-darker);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 50%;
+            height: 100%;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 20px;
+        .auth-header img {
+            margin-bottom: 8px;
         }
 
         .auth-header h1 {
-            color: #db4c3f;
-            margin: 0;
+            font-size: 24px;
+            margin-bottom: 4px;
         }
 
-        .moto{
-            margin-top: 10px;
-        }
         .auth-toggle {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .auth-toggle button {
             background-color: transparent;
+            color: var(--text-secondary);
             border: none;
-            color: #777;
+            padding: 4px 8px;
             cursor: pointer;
-            font-size: 16px;
-            padding: 5px 10px;
-            margin: 0 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
 
         .auth-toggle button.active {
-            color: #fff;
-            border-bottom: 2px solid #db4c3f;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 0.9em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 0.9em;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(227, 73, 53, 0.2);
         }
 
         .auth-form {
@@ -100,90 +221,208 @@
             display: block;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .testimonial {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-secondary);
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #aaa;
+        .author {
+            margin-top: 0.25rem;
+            font-weight: bold;
+            color: var(--text-primary);
         }
 
-        .form-group input {
+        .role {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+        }
+
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #fff;
+            height: 2px;
+            background-color: #3B3E45;
         }
 
-        .submit-btn {
-            width: 50%;
-            padding: 10px;
-            margin-top: 15px;
-            background-color: #db4c3f;
-            color: white;
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 5s linear;
+        }
+
+        .testimonial-content {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+
+        .back-button {
+            color: var(--text-secondary);
+            background: transparent;
             border: none;
-            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            padding: 0;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
-            margin-left: 25%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .submit-btn:hover {
-            background-color: #c73e31;
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--hover-bg);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .back-button:hover {
+            color: var(--text-color);
+        }
+
+        .back-button:hover::before {
+            transform: scale(1);
+        }
+
+        .back-button:active::before {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .back-button i {
+            font-size: 22px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="page-container">
-        <div class="image-container">
-            <img src="auth-page.png" alt="Decorative image">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <button class="back-button" onclick="goBack()" aria-label="Go back">
+                <i class="ri-arrow-left-line"></i>
+            </button>
+            <a class="navbar-brand nav-logo d-flex align-items-center home_link" href="index.html">
+                <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
+                <span class="fw-bold">Tasknimo</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link navbar-link" href="features.html">Features</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="Premium.html">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="business.html">Business</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="pricing.html">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link navbar-link" href="about_us.html">About Us</a></li>
+                </ul>
+                <form class="d-flex me-2">
+                    <input class="form-control search-box" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <a href="auth.html" class="btn navbar-link">Log in</a>
+                <a href="auth.html" class="btn primary-button ms-2">Start for Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="testimonial-container">
+            <div class="testimonial-content">
+                <div id="testimonialText" class="testimonial"></div>
+                <div id="testimonialAuthor" class="author"></div>
+                <div id="testimonialRole" class="role"></div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
         </div>
 
-        <div class="auth-container">
-            <div class="auth-header">
-                <img src="favicon.png" alt="" width="50px">
-                <h1>Tasknimo</h1>
-                <div class="moto">Where Tasks Meet Efficiency</div>
+        <div class="page-container">
+            <div class="image-container">
+                <img src="images/auth-page.png" alt="Decorative image" style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
-            <div class="auth-toggle">
-                <button id="signInToggle" class="active">Sign In</button>
-                <button id="signUpToggle">Sign Up</button>
+            <div class="auth-container">
+                <div class="auth-header">
+                    <center><img src="images/favicon.png" alt="" width="40px"></center>
+                    <h1>Tasknimo</h1>
+                    <div class="moto">Where Tasks Meet Efficiency</div>
+                </div>
+                <div class="auth-toggle">
+                    <button id="signInToggle" class="active">Sign In</button>
+                    <button id="signUpToggle">Sign Up</button>
+                </div>
+    
+                <form id="signInForm" method="post" class="auth-form active">
+                    <div class="form-group">
+                        <label for="signInEmail">Email</label>
+                        <input type="email" id="signInEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signInPassword">Password</label>
+                        <input type="password" id="signInPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign In</button>
+                </form>
+    
+                <form id="signUpForm" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="signUpName">Name</label>
+                        <input type="text" id="signUpName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpEmail">Email</label>
+                        <input type="email" id="signUpEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signUpPassword">Password</label>
+                        <input type="password" id="signUpPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign Up</button>
+                </form>
             </div>
-
-            <form id="signInForm" method="post" class="auth-form active">
-                <div class="form-group">
-                    <label for="signInEmail">Email</label>
-                    <input type="email" id="signInEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="signInPassword">Password</label>
-                    <input type="password" id="signInPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">Sign In</button>
-            </form>
-
-            <form id="signUpForm" method="post" class="auth-form">
-                <div class="form-group">
-                    <label for="signUpName">Name</label>
-                    <input type="text" id="signUpName" required>
-                </div>
-                <div class="form-group">
-                    <label for="signUpEmail">Email</label>
-                    <input type="email" id="signUpEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="signUpPassword">Password</label>
-                    <input type="password" id="signUpPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">Sign Up</button>
-            </form>
-
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const signInToggle = document.getElementById('signInToggle');
@@ -205,17 +444,61 @@
             signInForm.classList.remove('active');
         });
 
-
-
         signInForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            window.location.href = 'index.html';
+            window.location.href = 'today_tasks.html';
         });
 
         signUpForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            window.location.href = 'index.html';
+            window.location.href = 'today_tasks.html';
         });
+        
+        const testimonials = [
+            { text: "Tasknimo has transformed the way I manage my tasks. It's a game-changer!", author: "John Doe", role: "Productivity Expert" },
+            { text: "A productivity tool that really helps you get things done. Highly recommend it!", author: "Jane Smith", role: "Entrepreneur" },
+            { text: "Managing my daily to-do list has never been this simple and effective.", author: "Michael Brown", role: "Freelancer" }
+        ];
+
+        let currentTestimonialIndex = 0;
+        const testimonialContent = document.querySelector('.testimonial-content');
+        const testimonialText = document.getElementById('testimonialText');
+        const testimonialAuthor = document.getElementById('testimonialAuthor');
+        const testimonialRole = document.getElementById('testimonialRole');
+        const progressBar = document.getElementById('progressBar');
+
+        function updateTestimonial() {
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            testimonialContent.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+                const testimonial = testimonials[currentTestimonialIndex];
+
+                testimonialText.textContent = testimonial.text;
+                testimonialAuthor.textContent = testimonial.author;
+                testimonialRole.textContent = testimonial.role;
+
+                testimonialContent.classList.remove('fade-out');
+
+                setTimeout(() => {
+                    progressBar.style.transition = 'width 5s linear';
+                    progressBar.style.width = '100%';
+                }, 100);
+
+                setTimeout(updateTestimonial, 5000);
+            }, 500);
+        }
+
+        updateTestimonial();
+        
+        
+        function goBack() {
+        window.history.back();
+    }
+
+        document.querySelector('.back-button').addEventListener('click', goBack);
     </script>
 </body>
 </html>
