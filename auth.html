@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,12 +16,12 @@
             --text-primary: #ffffff;
             --text-secondary: #808080;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-primary);
-            padding-top: 76px; 
+            padding-top: 76px;
         }
 
         .home_link:hover {
@@ -130,7 +131,7 @@
             align-items: center;
             padding: 20px;
         }
-        
+
         .auth-container {
             background-color: var(--bg-darker);
             padding: 15px;
@@ -318,8 +319,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes scaleIn {
@@ -327,13 +333,377 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
             }
         }
+
+        .welcome-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .welcome-popup-content {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .popup-header {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-logo {
+            filter: drop-shadow(0 4px 6px rgba(227, 73, 53, 0.3));
+            margin-bottom: 1.5rem;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .welcome-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .welcome-text h2 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #e3e3e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-text .user-email {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        .popup-body {
+            text-align: center;
+        }
+
+        .welcome-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, var(--primary-color), #ff6b5b);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .continue-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(227, 73, 53, 0.3);
+        }
+
+        .continue-btn:hover::before {
+            opacity: 1;
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .continue-btn:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                backdrop-filter: blur(0);
+            }
+
+            to {
+                opacity: 1;
+                backdrop-filter: blur(8px);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-popup-content {
+                padding: 2rem;
+            }
+
+            .welcome-text h2 {
+                font-size: 1.75rem;
+            }
+
+            .welcome-message {
+                font-size: 1rem;
+            }
+
+            .continue-btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+
+        .error-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .error-popup-content {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            animation: shakeError 0.5s cubic-bezier(.36, .07, .19, .97) both;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .error-icon {
+            margin-bottom: 1.5rem;
+            color: #ff4d4d;
+            animation: pulseError 2s ease-in-out infinite;
+        }
+
+        .error-text h2 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .retry-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .try-again-btn {
+            background: linear-gradient(135deg, #2d2d2d, #3d3d3d);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .try-again-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .try-again-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .try-again-btn:hover::before {
+            opacity: 1;
+        }
+
+        .retry-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .try-again-btn:hover .retry-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes shakeError {
+
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+
+        @keyframes pulseError {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-popup-content {
+                padding: 2rem;
+            }
+
+            .error-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .error-message,
+            .retry-message {
+                font-size: 1rem;
+            }
+
+            .try-again-btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        .user-name {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+
+        #signupWelcomePopup .welcome-message {
+            color: var(--text-secondary);
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        #signupWelcomePopup .continue-btn {
+            background: linear-gradient(135deg, var(--primary-color), #ff6b5b);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #signupWelcomePopup .welcome-popup-content {
+            animation: slideIn 0.5s ease-out;
+        }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -344,7 +714,8 @@
                 <img src="images/favicon.png" width="40" height="40" alt="Tasknimo logo" class="me-2">
                 <span class="fw-bold">Tasknimo</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -378,7 +749,8 @@
 
         <div class="page-container">
             <div class="image-container">
-                <img src="images/auth-page.png" alt="Decorative image" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                <img src="images/auth-page.png" alt="Decorative image"
+                    style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
             <div class="auth-container">
                 <div class="auth-header">
@@ -390,7 +762,7 @@
                     <button id="signInToggle" class="active">Sign In</button>
                     <button id="signUpToggle">Sign Up</button>
                 </div>
-    
+
                 <form id="signInForm" method="post" class="auth-form active">
                     <div class="form-group">
                         <label for="signInEmail">Email</label>
@@ -402,7 +774,7 @@
                     </div>
                     <button type="submit" class="submit-btn">Sign In</button>
                 </form>
-    
+
                 <form id="signUpForm" method="post" class="auth-form">
                     <div class="form-group">
                         <label for="signUpName">Name</label>
@@ -421,84 +793,266 @@
             </div>
         </div>
     </div>
+    <div id="welcomePopup" class="welcome-popup">
+        <div class="welcome-popup-content">
+            <div class="popup-header">
+                <img src="images/favicon.png" alt="Tasknimo logo" width="70" height="70" class="welcome-logo">
+                <div class="welcome-text">
+                    <h2>Welcome back!</h2>
+                    <p class="user-email"></p>
+                </div>
+            </div>
+            <div class="popup-body">
+                <p class="welcome-message">We're glad to see you again. Your tasks are waiting for you!</p>
+                <button class="continue-btn">
+                    Continue to Dashboard
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="arrow-icon">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <div id="errorPopup" class="error-popup">
+        <div class="error-popup-content">
+            <div class="popup-header">
+                <div class="error-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div class="error-text">
+                    <h2>Invalid Credentials</h2>
+                    <p class="error-message">The email or password you entered is incorrect.</p>
+                </div>
+            </div>
+            <div class="popup-body">
+                <p class="retry-message">Please check your credentials and try again.</p>
+                <button class="try-again-btn">
+                    Try Again
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="retry-icon">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <polyline points="23 20 23 14 17 14"></polyline>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="signupWelcomePopup" class="welcome-popup">
+        <div class="welcome-popup-content">
+            <div class="popup-header">
+                <img src="images/favicon.png" alt="Tasknimo logo" width="70" height="70" class="welcome-logo">
+                <div class="welcome-text">
+                    <h2>Welcome to Tasknimo!</h2>
+                    <p class="user-name"></p>
+                    <p class="user-email"></p>
+                </div>
+            </div>
+            <div class="popup-body">
+                <p class="welcome-message">Thank you for joining us! Let's start organizing your tasks together.</p>
+                <button class="continue-btn">
+                    Get Started
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="arrow-icon">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        const signInToggle = document.getElementById('signInToggle');
-        const signUpToggle = document.getElementById('signUpToggle');
-        const signInForm = document.getElementById('signInForm');
-        const signUpForm = document.getElementById('signUpForm');
 
-        signInToggle.addEventListener('click', () => {
-            signInToggle.classList.add('active');
-            signUpToggle.classList.remove('active');
-            signInForm.classList.add('active');
-            signUpForm.classList.remove('active');
-        });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-        signUpToggle.addEventListener('click', () => {
-            signUpToggle.classList.add('active');
-            signInToggle.classList.remove('active');
-            signUpForm.classList.add('active');
-            signInForm.classList.remove('active');
-        });
+<script>
 
-        signInForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.location.href = 'today_tasks.html';
-        });
+const signInToggle = document.getElementById('signInToggle');
+const signUpToggle = document.getElementById('signUpToggle');
+const signInForm = document.getElementById('signInForm');
+const signUpForm = document.getElementById('signUpForm');
 
-        signUpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.location.href = 'today_tasks.html';
-        });
-        
-        const testimonials = [
-            { text: "Tasknimo has transformed the way I manage my tasks. It's a game-changer!", author: "John Doe", role: "Productivity Expert" },
-            { text: "A productivity tool that really helps you get things done. Highly recommend it!", author: "Jane Smith", role: "Entrepreneur" },
-            { text: "Managing my daily to-do list has never been this simple and effective.", author: "Michael Brown", role: "Freelancer" }
-        ];
+signInToggle.addEventListener('click', () => {
+    signInToggle.classList.add('active');
+    signUpToggle.classList.remove('active');
+    signInForm.classList.add('active');
+    signUpForm.classList.remove('active');
+});
 
-        let currentTestimonialIndex = 0;
-        const testimonialContent = document.querySelector('.testimonial-content');
-        const testimonialText = document.getElementById('testimonialText');
-        const testimonialAuthor = document.getElementById('testimonialAuthor');
-        const testimonialRole = document.getElementById('testimonialRole');
-        const progressBar = document.getElementById('progressBar');
+signUpToggle.addEventListener('click', () => {
+    signUpToggle.classList.add('active');
+    signInToggle.classList.remove('active');
+    signUpForm.classList.add('active');
+    signInForm.classList.remove('active');
+});
 
-        function updateTestimonial() {
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
-            testimonialContent.classList.add('fade-out');
+signUpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-            setTimeout(() => {
-                currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
-                const testimonial = testimonials[currentTestimonialIndex];
+        const name = document.getElementById('signUpName').value.trim();
+        const email = document.getElementById('signUpEmail').value.trim();
+        const password = document.getElementById('signUpPassword').value;
 
-                testimonialText.textContent = testimonial.text;
-                testimonialAuthor.textContent = testimonial.author;
-                testimonialRole.textContent = testimonial.role;
-
-                testimonialContent.classList.remove('fade-out');
-
-                setTimeout(() => {
-                    progressBar.style.transition = 'width 5s linear';
-                    progressBar.style.width = '100%';
-                }, 100);
-
-                setTimeout(updateTestimonial, 5000);
-            }, 500);
+        if (!name || !email || !password) {
+            showErrorPopup('Please fill in all fields.');
+            return;
         }
 
-        updateTestimonial();
+        const user = {
+            name,
+            email,
+            password,
+            dateJoined: new Date().toISOString()
+        };
+
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        if (users.some(u => u.email === email)) {
+            showErrorPopup('This email is already registered.');
+            return;
+        }
+
+        users.push(user);
+
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUserName', name);
+
+        showSignupWelcomePopup(name, email);
+    });
+
+signInForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('signInEmail').value.trim();
+        const password = document.getElementById('signInPassword').value;
+
+        if (!email || !password) {
+            showErrorPopup('Please fill in all fields.');
+            return;
+        }
+
+        const validUsername = "rachitgoyell@tasknimo.com";
+        const validPassword = "admin";
         
-        
-        function goBack() {
-        window.history.back();
+        if (email === validUsername && password === validPassword) {
+            localStorage.setItem('currentUserName', 'Rachit Goyal');
+            showWelcomeBackPopup(email);
+            return;
+        }
+
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            localStorage.setItem('currentUserName', user.name);
+            showWelcomeBackPopup(email);
+        } else {
+            showErrorPopup('Invalid email or password.');
+        }
+    });
+
+function showWelcomeBackPopup(email) {
+        const popup = document.getElementById('welcomePopup');
+        const userEmail = popup.querySelector('.user-email');
+        userEmail.textContent = email;
+        popup.style.display = 'flex';
+
+        popup.querySelector('.continue-btn').addEventListener('click', () => {
+            window.location.href = 'today_tasks.html';
+        }, { once: true });
     }
 
-        document.querySelector('.back-button').addEventListener('click', goBack);
-    </script>
+function showSignupWelcomePopup(name, email) {
+        const popup = document.getElementById('signupWelcomePopup');
+        const userName = popup.querySelector('.user-name');
+        const userEmail = popup.querySelector('.user-email');
+
+        userName.textContent = name;
+        userEmail.textContent = email;
+        popup.style.display = 'flex';
+
+        popup.querySelector('.continue-btn').addEventListener('click', () => {
+            window.location.href = 'today_tasks.html';
+        }, { once: true });
+    }
+function showErrorPopup(message) {
+    const popup = document.getElementById('errorPopup');
+    const errorMessage = popup.querySelector('.error-message');
+    const inputs = document.querySelectorAll('input');
+
+    if (message) {
+        errorMessage.textContent = message;
+    }
+
+    popup.style.display = 'flex';
+
+    const tryAgainBtn = popup.querySelector('.try-again-btn');
+    tryAgainBtn.addEventListener('click', () => {
+        inputs.forEach(input => {
+            input.value = '';
+        });
+        popup.style.display = 'none';
+        document.getElementById('signInEmail').focus();
+    }, { once: true });
+}
+
+const testimonials = [
+    { text: "Tasknimo has transformed the way I manage my tasks. It's a game-changer!", author: "John Doe", role: "Productivity Expert" },
+    { text: "A productivity tool that really helps you get things done. Highly recommend it!", author: "Jane Smith", role: "Entrepreneur" },
+    { text: "Managing my daily to-do list has never been this simple and effective.", author: "Michael Brown", role: "Freelancer" }
+];
+
+let currentTestimonialIndex = 0;
+const testimonialContent = document.querySelector('.testimonial-content');
+const testimonialText = document.getElementById('testimonialText');
+const testimonialAuthor = document.getElementById('testimonialAuthor');
+const testimonialRole = document.getElementById('testimonialRole');
+const progressBar = document.getElementById('progressBar');
+
+function updateTestimonial() {
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '0%';
+    testimonialContent.classList.add('fade-out');
+
+    setTimeout(() => {
+        currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+        const testimonial = testimonials[currentTestimonialIndex];
+
+        testimonialText.textContent = testimonial.text;
+        testimonialAuthor.textContent = testimonial.author;
+        testimonialRole.textContent = testimonial.role;
+
+        testimonialContent.classList.remove('fade-out');
+
+        setTimeout(() => {
+            progressBar.style.transition = 'width 5s linear';
+            progressBar.style.width = '100%';
+        }, 100);
+
+        setTimeout(updateTestimonial, 5000);
+    }, 500);
+}
+
+updateTestimonial();
+
+function goBack() {
+    window.history.back();
+}
+
+document.querySelector('.back-button').addEventListener('click', goBack);
+</script>
+
 </body>
+
 </html>

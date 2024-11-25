@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasknimo - User Dashboard</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E34935;
+            --secondary-color: #808080;
+            --bg-dark: #1f1f1f;
+            --bg-darker: #171717;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --text-primary: #ffffff;
+            --text-secondary: #808080;
+            --sidebar-bg: #282828;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-item {
+            padding: 1px 0;
+            color: #ffffffb3;
+            text-decoration: none;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background-color: #363636;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f06a6a;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .user-name {
+            flex-grow: 1;
+            font-size: large;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        .sidebar a {
+            text-decoration: none;
+        }
+        .icons {
+            display: flex;
+            gap: 10px;
+            color: var(--text-primary);
+
+        }
+
+        .icon-1 {
+            cursor: pointer;
+        }
+
+        .add-task {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item {
+            padding: 8px 10px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+        }
+
+        .menu-item:hover {
+            background-color: #2c2c2c;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background-color: #363636;
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .menu-text {
+            flex-grow: 1;
+        }
+
+        .menu-count {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.8em;
+        }
+
+        .section-title {
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            padding-left: 10px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .profile-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-text p {
+            color: var(--text-secondary);
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .badge-primary {
+            background-color: var(--primary-color);
+        }
+
+        .badge-secondary {
+            background-color: #2a2220;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #363636;
+            color: #9a9a9a;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #454545;
+            color: #ffffff;
+        }
+
+        .back-button svg {
+            margin-right: 5px;
+        }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #2a2220;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .achievements {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-card {
+            background-color: #2a2220;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .achievement-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .achievement-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .achievement-info p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 1000;
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .dashboard {
+                padding: 1rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .profile-info {
+                flex-direction: column;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <button class="back-button" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Back
+        </button>
+        <a href="user_profile.html">
+            <div class="user-info">
+                <div class="user-avatar"><img src="images/naruto2.jpeg" alt="User Avatar"></div>
+                <span class="user-name">Loading...</span>
+                <div class="icons">
+                    <span class="icon-1">🔔</span>
+                    <span class="icon-1">⚙</span>
+                </div>
+            </div>
+        </a>
+        <button class="add-task">
+            <span class="add-task-icon">+</span>
+            Add task
+        </button>
+
+        <a href="inbox.html" class="sidebar-item">
+            <div class="menu-item">
+                <span class="menu-icon">📥</span>
+                <span class="menu-text">Inbox</span>
+                <span class="menu-count">4</span>
+            </div>
+        </a>
+        <a href="today_tasks.html" class="sidebar-item">
+            <div class="menu-item active">
+                <span class="menu-icon">📅</span>
+                <span class="menu-text">Today</span>
+                <span class="menu-count">3</span>
+            </div>
+        </a>
+        <a href="upcoming.html" class="sidebar-item">
+            <div class="menu-item">
+                <span class="menu-icon">📆</span>
+                <span class="menu-text">Upcoming</span>
+            </div>
+        </a>
+        <a href="filters_and_labels.html" class="sidebar-item">
+            <div class="menu-item">
+                <span class="menu-icon">🏷️</span>
+                <span class="menu-text">Filters & Labels</span>
+            </div>
+        </a>
+        <div class="section-title">My Projects</div>
+        <a href="home.html" class="sidebar-item">
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">Home 🏠</span>
+                <span class="menu-count">4</span>
+            </div>
+        </a>
+        <a href="my_work.html" class="sidebar-item">
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">My work 🎯</span>
+                <span class="menu-count">5</span>
+            </div>
+        </a>
+        <a href="education.html" class="sidebar-item">
+            <div class="menu-item project">
+                <span class="menu-icon">#</span>
+                <span class="menu-text">Education 📚</span>
+                <span class="menu-count">3</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="main-content">
+        <div class="dashboard">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <span id="userInitials">...</span>
+                    </div>
+                    <div class="profile-text">
+                        <h1 id="dashboardUserName">Loading...</h1>
+                        <p>Tasknimo</p>
+                    </div>
+                </div>
+                <div class="profile-badges">
+                    <span class="badge badge-primary">Premium</span>
+                    <span class="badge badge-secondary">Team Lead</span>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">376</div>
+                            <div class="stat-label">Tasks Completed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">28 days</div>
+                            <div class="stat-label">Current Streak</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Productivity Score</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Task Completion History</h3>
+                    <div class="chart-container">
+                        <canvas id="completionChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Daily Productivity Pattern</h3>
+                    <div class="chart-container">
+                        <canvas id="productivityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements">
+                <h3 class="chart-title">Recent Achievements</h3>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="achievement-info">
+                            <h4>Task Master</h4>
+                            <p>Completed 100 tasks this month</p>
+                        </div>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="achievement-info">
+                            <h4>Speed Demon</h4>
+                            <p>Averaged under 2 hours per task</p>
+                        </div>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="achievement-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="achievement-info">
+                            <h4>Early Bird</h4>
+                            <p>Completed 5 tasks before 9 AM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        function loadUserName() {
+            const userName = localStorage.getItem('currentUserName') || 'Guest User';
+            const sidebarUserNameElement = document.querySelector('.user-name');
+            const dashboardUserNameElement = document.getElementById('dashboardUserName');
+            const userInitialsElement = document.getElementById('userInitials');
+
+            sidebarUserNameElement.textContent = userName;
+            dashboardUserNameElement.textContent = userName;
+
+            const initials = userName.split(' ').map(name => name[0]).join('').toUpperCase();
+            userInitialsElement.textContent = initials;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserName();
+            initCharts();
+        });
+
+        const completionCtx = document.getElementById('completionChart').getContext('2d');
+        const productivityCtx = document.getElementById('productivityChart').getContext('2d');
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#808080'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: '#333'
+                    },
+                    ticks: {
+                        color: '#808080'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: '#333'
+                    },
+                    ticks: {
+                        color: '#808080'
+                    }
+                }
+            }
+        };
+
+        function initCharts() {
+            new Chart(completionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+                    datasets: [{
+                        label: 'Total Tasks',
+                        data: [45, 52, 58, 75, 89, 95],
+                        backgroundColor: '#E34935',
+                        borderColor: '#E34935',
+                        borderWidth: 1
+                    }, {
+                        label: 'Completed',
+                        data: [38, 47, 51, 70, 82, 88],
+                        backgroundColor: '#2a2220',
+                        borderColor: '#2a2220',
+                        borderWidth: 1
+                    }]
+                },
+                options: chartOptions
+            });
+
+            new Chart(productivityCtx, {
+                type: 'line',
+                data: {
+                    labels: ['6am', '9am', '12pm', '3pm', '6pm', '9pm'],
+                    datasets: [{
+                        label: 'Tasks Completed',
+                        data: [2, 8, 5, 7, 4, 3],
+                        borderColor: '#E34935',
+                        backgroundColor: 'rgba(227, 73, 53, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: chartOptions
+            });
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarButton = document.querySelector('.sidebar-toggle');
+
+            if (!sidebar.contains(e.target) && !sidebarButton?.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sidebar = document.querySelector('.sidebar');
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>

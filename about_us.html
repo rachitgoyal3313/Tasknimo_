@@ -224,6 +224,7 @@
             display: flex;
             justify-content: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .social-icon {
@@ -248,6 +249,10 @@
 
         .github {
             background-color: #333;
+        }
+
+        .resume {
+            background-color: #4285F4;
         }
 
         @media (max-width: 992px) {
@@ -311,6 +316,9 @@
                     <a href="https://github.com/rahulbathla3314" class="social-icon github" target="_blank">
                         <i class="ri-github-fill"></i>
                     </a>
+                    <a href="https://drive.google.com/file/d/1rAicRmnP8B0_NPON1b9lzPPJKF14r0Hw/view?usp=sharing" class="social-icon resume" target="_blank" title="View Resume">
+                        <i class="ri-file-text-line"></i>
+                    </a>
                 </div>
             </div>
             
@@ -325,6 +333,9 @@
                     </a>
                     <a href="https://github.com/rachitgoyal3313" class="social-icon github" target="_blank">
                         <i class="ri-github-fill"></i>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1TEdx_vAYBS0WrY-Q0tzQYLVOIQw9RiMf/view?usp=sharing" class="social-icon resume" target="_blank" title="View Resume">
+                        <i class="ri-file-text-line"></i>
                     </a>
                 </div>
             </div>
@@ -341,6 +352,9 @@
                     <a href="https://github.com/rahulgoyal001" class="social-icon github" target="_blank">
                         <i class="ri-github-fill"></i>
                     </a>
+                    <a href="https://drive.google.com/file/d/1t6sln3tRQXOLIvtCSZD2NbkqJ4N_5tno/view?usp=sharing" class="social-icon resume" target="_blank" title="View Resume">
+                        <i class="ri-file-text-line"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -349,9 +363,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         function goBack() {
-        window.history.back();
-    }
-
+            window.history.back();
+        }
         document.querySelector('.back-button').addEventListener('click', goBack);
     </script>
 </body>

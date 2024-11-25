@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./images/favicon.png">
-    <title>Filters & Labels - Todoist Clone</title>
+    <title>Filters & Labels</title>
     <style>
-        body, html {
+        body,
+        html {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
             background-color: #1f1f1f;
             color: #ffffff;
@@ -14,10 +16,12 @@
             padding: 0;
             height: 100%;
         }
+
         .app-container {
             display: flex;
             height: 100vh;
         }
+
         .sidebar {
             width: 250px;
             background-color: #282828;
@@ -26,24 +30,30 @@
             flex-direction: column;
             height: 100%;
         }
+
         .sidebar-item {
             padding: 1px 0;
             color: #ffffffb3;
             text-decoration: none;
         }
-        .sidebar-item:hover, .sidebar-item.active {
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
             background-color: #363636;
         }
+
         .main-content {
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
         }
+
         .user-info {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
         }
+
         .user-avatar img {
             width: 30px;
             height: 30px;
@@ -52,18 +62,36 @@
             margin-right: 10px;
             margin-top: 5px;
         }
+
         .user-name {
             flex-grow: 1;
             font-size: large;
             cursor: pointer;
+            color: #fff;
         }
+
         .icons {
             display: flex;
             gap: 10px;
+            color: #fff;
         }
+
         .icon-1 {
             cursor: pointer;
+            color: #fff;
         }
+
+        .sidebar a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover .user-name,
+        .sidebar a:hover .icons,
+        .sidebar a:hover .icon-1 {
+            color: #fff;
+        }
+
         .add-task {
             background-color: #db4c3f;
             color: white;
@@ -76,6 +104,7 @@
             align-items: center;
             gap: 10px;
         }
+
         .add-task-icon {
             margin-right: 5px;
             font-size: 24px;
@@ -83,6 +112,7 @@
             line-height: 1;
             text-align: center;
         }
+
         .menu-item {
             padding: 8px 10px;
             margin-bottom: 2px;
@@ -91,26 +121,33 @@
             align-items: center;
             border-radius: 5px;
         }
+
         .menu-item:hover {
             background-color: #2c2c2c;
+            transform: translateX(5px);
         }
+
         .menu-item.active {
             background-color: #363636;
         }
+
         .menu-icon {
             width: 20px;
             margin-right: 10px;
             text-align: center;
         }
+
         .menu-text {
             flex-grow: 1;
         }
+
         .menu-count {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             padding: 2px 6px;
             font-size: 0.8em;
         }
+
         .section-title {
             font-size: 0.8em;
             color: #777;
@@ -118,13 +155,16 @@
             margin-bottom: 5px;
             padding-left: 10px;
         }
+
         .project {
             display: flex;
             align-items: center;
         }
+
         .project-icon {
             margin-right: 10px;
         }
+
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -139,10 +179,12 @@
             transition: background-color 0.2s, color 0.2s;
             margin-bottom: 10px;
         }
+
         .back-button:hover {
             background-color: #454545;
             color: #ffffff;
         }
+
         .back-button svg {
             margin-right: 5px;
         }
@@ -152,19 +194,23 @@
             font-weight: bold;
             margin-bottom: 20px;
         }
+
         .section {
             margin-bottom: 30px;
         }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .section-title {
             font-size: 18px;
             font-weight: bold;
         }
+
         .add-btn {
             background-color: transparent;
             border: 1px solid #ffffff50;
@@ -173,63 +219,255 @@
             border-radius: 3px;
             cursor: pointer;
         }
+
         .item-list {
             list-style-type: none;
             padding: 0;
         }
+
         .item {
             display: flex;
             align-items: center;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 5px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
         }
+
+        .item.item-appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .item:hover {
             background-color: #363636;
         }
+
         .item-icon {
             margin-right: 10px;
             font-size: 18px;
         }
+
         .item-name {
             flex-grow: 1;
         }
+
         .item-actions {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .item:hover .item-actions {
             opacity: 1;
         }
+
         .action-btn {
             background: none;
             border: none;
             color: #ffffff80;
             cursor: pointer;
             margin-left: 5px;
+            transition: color 0.3s ease, transform 0.2s ease;
         }
+
         .action-btn:hover {
             color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.modal-appear {
+            opacity: 1;
+        }
+
+        .modal {
+            background-color: #282828;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.modal-appear .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ffffff80;
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ffffff;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #ffffff80;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 8px;
+            background-color: #363636;
+            border: 1px solid #ffffff30;
+            border-radius: 4px;
+            color: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #db4c3f;
+            outline: none;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cancel-button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid #ffffff30;
+        }
+
+        .save-button {
+            background-color: #db4c3f;
+            color: white;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .modal-button:active {
+            transform: translateY(0);
+        }
+
+        .add-btn,
+        .action-btn,
+        .modal-button {
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover,
+        .action-btn:hover,
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-btn:active,
+        .action-btn:active,
+        .modal-button:active {
+            transform: translateY(0);
+            box-shadow: none;
         }
     </style>
 </head>
+
 <body>
     <div class="app-container">
         <div class="sidebar">
             <button class="back-button" onclick="goBack()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
                 Back
-            </button>   
-            <div class="user-info">
-                <div class="user-avatar"><img src="images/naruto2.jpeg" alt="Naruto"></div>
-                <span class="user-name">Naruto Uzumaki</span>
-                <div class="icons">
-                    <span class="icon-1">🔔</span>
-                    <span class="icon-1">⚙</span>
+            </button>
+            <a href="user_profile.html">
+                <div class="user-info">
+                    <div class="user-avatar"><img src="images/naruto2.jpeg" alt="Naruto"></div>
+                    <span class="user-name">Rachit Goyal</span>
+                    <div class="icons">
+                        <span class="icon-1">🔔</span>
+                        <span class="icon-1">⚙</span>
+                    </div>
                 </div>
-            </div>
+            </a>
             <button class="add-task">
                 <span class="add-task-icon">+</span>
                 Add task
@@ -258,7 +496,7 @@
                 <span class="menu-icon">🏷️</span>
                 <span class="menu-text">Filters & Labels</span>
             </div>
-            
+
             <div class="section-title">My Projects</div>
             <a href="home.html" class="sidebar-item">
                 <div class="menu-item project">
@@ -287,68 +525,260 @@
             <section class="section">
                 <div class="section-header">
                     <h2 class="section-title">Filters</h2>
-                    <button class="add-btn">Add filter</button>
+                    <button class="add-btn" onclick="showModal('filter')">Add filter</button>
                 </div>
-                <ul class="item-list" id="filter-list">
-                   
-                </ul>
+                <ul class="item-list" id="filter-list"></ul>
             </section>
             <section class="section">
                 <div class="section-header">
                     <h2 class="section-title">Labels</h2>
-                    <button class="add-btn">Add label</button>
+                    <button class="add-btn" onclick="showModal('label')">Add label</button>
                 </div>
-                <ul class="item-list" id="label-list">
-                    
-                </ul>
+                <ul class="item-list" id="label-list"></ul>
             </section>
         </main>
     </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Add Filter</h3>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+            <form class="modal-form" id="addItemForm">
+                <div class="form-group">
+                    <label for="itemName">Name</label>
+                    <input type="text" id="itemName" required>
+                </div>
 
+                <div class="form-group" id="filterIconGroup">
+                    <label for="filterIcon">Icon</label>
+                    <select id="filterIcon">
+                        <option value="🔴">🔴 Priority</option>
+                        <option value="📅">📅 Calendar</option>
+                        <option value="👤">👤 Person</option>
+                        <option value="📌">📌 Pin</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="labelColorGroup">
+                    <label>Color</label>
+                    <div class="color-picker" id="colorPicker">
+                        <div class="color-option" style="background-color: #4073ff" data-color="#4073ff"></div>
+                        <div class="color-option" style="background-color: #ff9933" data-color="#ff9933"></div>
+                        <div class="color-option" style="background-color: #db4c3f" data-color="#db4c3f"></div>
+                        <div class="color-option" style="background-color: #38c4b1" data-color="#38c4b1"></div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="modal-button cancel-button" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="modal-button save-button">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
-        const filters = [
-            { id: 1, name: "Priority 1", icon: "🔴" },
-            { id: 2, name: "This week", icon: "📅" },
-            { id: 3, name: "Assigned to me", icon: "👤" }
-        ];
+        let filters = [];
+        let labels = [];
+        let currentType = '';
+        let selectedColor = null;
+        let editingItemId = null;
 
-        const labels = [
-            { id: 1, name: "Work", color: "#4073ff" },
-            { id: 2, name: "Personal", color: "#ff9933" },
-            { id: 3, name: "Urgent", color: "#db4c3f" }
-        ];
+        function initializeApp() {
+            loadFromLocalStorage();
+            renderList('filter');
+            renderList('label');
+            initializeColorPicker();
+            document.getElementById('addItemForm').addEventListener('submit', handleFormSubmit);
+            loadUserName();
+        }
+
+        function loadFromLocalStorage() {
+            const savedFilters = localStorage.getItem('filters');
+            const savedLabels = localStorage.getItem('labels');
+            filters = savedFilters ? JSON.parse(savedFilters) : [];
+            labels = savedLabels ? JSON.parse(savedLabels) : [];
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('filters', JSON.stringify(filters));
+            localStorage.setItem('labels', JSON.stringify(labels));
+        }
 
         function createListItem(item, type) {
             const li = document.createElement('li');
             li.className = 'item';
             li.innerHTML = `
-                <span class="item-icon" style="color: ${item.color || 'inherit'}">${item.icon || '🏷️'}</span>
-                <span class="item-name">${item.name}</span>
-                <div class="item-actions">
-                    <button class="action-btn" onclick="editItem('${type}', ${item.id})">✏️</button>
-                    <button class="action-btn" onclick="deleteItem('${type}', ${item.id})">🗑️</button>
-                </div>
-            `;
+        <span class="item-icon" style="color: ${item.color || 'inherit'}">${item.icon || '🏷️'}</span>
+        <span class="item-name">${item.name}</span>
+        <div class="item-actions">
+            <button class="action-btn" onclick="editItem('${type}', ${item.id})">✏️</button>
+            <button class="action-btn" onclick="deleteItem('${type}', ${item.id})">🗑️</button>
+        </div>
+    `;
             return li;
         }
 
-        function renderList(items, listId, type) {
-            const list = document.getElementById(listId);
+        function renderList(type) {
+            const list = document.getElementById(`${type}-list`);
+            const items = type === 'filter' ? filters : labels;
             list.innerHTML = '';
             items.forEach(item => {
-                list.appendChild(createListItem(item, type));
+                const li = createListItem(item, type);
+                list.appendChild(li);
+                setTimeout(() => li.classList.add('item-appear'), 10);
             });
         }
 
+        function showModal(type) {
+            currentType = type;
+            editingItemId = null;
+            const modal = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const filterIconGroup = document.getElementById('filterIconGroup');
+            const labelColorGroup = document.getElementById('labelColorGroup');
+
+            modalTitle.textContent = `Add ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+
+            if (type === 'filter') {
+                filterIconGroup.style.display = 'block';
+                labelColorGroup.style.display = 'none';
+            } else {
+                filterIconGroup.style.display = 'none';
+                labelColorGroup.style.display = 'block';
+            }
+
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('modal-appear'), 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.remove('modal-appear');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('addItemForm').reset();
+            }, 300);
+            selectedColor = null;
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => option.classList.remove('selected'));
+        }
+
+        function initializeColorPicker() {
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedColor = option.dataset.color;
+                });
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('itemName');
+            const name = nameInput.value.trim();
+
+            if (currentType === 'filter') {
+                const icon = document.getElementById('filterIcon').value;
+                if (editingItemId) {
+                    const index = filters.findIndex(filter => filter.id === editingItemId);
+                    if (index !== -1) {
+                        filters[index] = { ...filters[index], name, icon };
+                    }
+                } else {
+                    const newFilter = {
+                        id: Date.now(),
+                        name: name,
+                        icon: icon
+                    };
+                    filters.push(newFilter);
+                }
+                renderList('filter');
+            } else {
+                if (!selectedColor) {
+                    alert('Please select a color');
+                    return;
+                }
+                if (editingItemId) {
+                    const index = labels.findIndex(label => label.id === editingItemId);
+                    if (index !== -1) {
+                        labels[index] = { ...labels[index], name, color: selectedColor };
+                    }
+                } else {
+                    const newLabel = {
+                        id: Date.now(),
+                        name: name,
+                        color: selectedColor
+                    };
+                    labels.push(newLabel);
+                }
+                renderList('label');
+            }
+
+            saveToLocalStorage();
+            closeModal();
+        }
+
+        function deleteItem(type, id) {
+            if (type === 'filter') {
+                filters = filters.filter(filter => filter.id !== id);
+                renderList('filter');
+            } else if (type === 'label') {
+                labels = labels.filter(label => label.id !== id);
+                renderList('label');
+            }
+            saveToLocalStorage();
+        }
+
+        function editItem(type, id) {
+            const item = type === 'filter'
+                ? filters.find(filter => filter.id === id)
+                : labels.find(label => label.id === id);
+
+            if (!item) return;
+
+            editingItemId = id;
+            const nameInput = document.getElementById('itemName');
+            nameInput.value = item.name;
+
+            if (type === 'filter') {
+                const filterIcon = document.getElementById('filterIcon');
+                filterIcon.value = item.icon;
+                showModal('filter');
+            } else {
+                selectedColor = item.color;
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    if (option.dataset.color === selectedColor) {
+                        option.classList.add('selected');
+                    } else {
+                        option.classList.remove('selected');
+                    }
+                });
+                showModal('label');
+            }
+
+            const modalTitle = document.getElementById('modalTitle');
+            modalTitle.textContent = `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        }
+        function loadUserName() {
+            const userName = localStorage.getItem('currentUserName');
+            const userNameElement = document.querySelector('.user-name');
+            if (userName) {
+                userNameElement.textContent = userName;
+            } else {
+                userNameElement.textContent = 'Guest User';
+            }
+        }
 
         function goBack() {
             window.history.back();
         }
 
-        renderList(filters, 'filter-list', 'filter');
-        renderList(labels, 'label-list', 'label');
-
-    
+        document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
 </body>
+
 </html>
