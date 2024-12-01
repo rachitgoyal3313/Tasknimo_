@@ -826,7 +826,9 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            location.reload();
+            window.addEventListener('popstate', function(event) {
+                location.reload();
+              });
             const now = new Date();
             const dateOptions = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
             document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', dateOptions);
