@@ -220,6 +220,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .date {
@@ -227,17 +228,14 @@
             font-weight: bold;
             font-size: 32px;
         }
-        
+
         .search-box {
             width: 200px;
             height: 80px;
             background: #1f1f1f;
             overflow: hidden;
             font-family: 'Lato', sans-serif;
-            position: absolute;
-            left: 92%;
-            margin-top: 80px;
-            transform: translate(-50%, -50%);
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -273,13 +271,78 @@
             padding: 0;
         }
 
+        .logout-button {
+            margin-top: auto;
+            background-color: #363636;
+            color: #9a9a9a;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #454545;
+            color: #ffffff;
+        }
+
+        .logout-icon {
+            width: 20px;
+            height: 20px;
+        }
+
         .task-item {
             display: flex;
             align-items: center;
             padding: 10px 0;
             border-bottom: 1px solid #333;
             transition: background-color 0.2s ease;
+            flex-wrap: wrap;
         }
+
+        .task-text::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .task-item.completed .task-text {
+            opacity: 0.6;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .task-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .priority-btn,
+        .reminder-btn,
+        .update_delete {
+            margin-left: 5px;
+        }
+
+        .task-project {
+            margin-left: 10px;
+        }
+
 
         .task-item:hover {
             background-color: #2c2c2c;
@@ -308,7 +371,11 @@
 
         .task-text {
             flex-grow: 1;
+            margin-right: 10px;
+            position: relative;
+            transition: opacity 0.3s ease;
         }
+
 
         .task-project {
             font-size: 12px;
@@ -340,6 +407,56 @@
         .reminder-btn:hover {
             background-color: #252524;
             transform: translateY(-2px);
+        }
+
+
+        .login-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+        }
+
+        .login-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #282828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 2001;
+        }
+
+        .login-popup h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .login-popup p {
+            margin-bottom: 20px;
+            color: #9a9a9a;
+        }
+
+        .login-btn {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #e05e52;
         }
 
         .modal {
@@ -471,6 +588,14 @@
             background-color: #363636;
         }
 
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
 
         @media screen and (max-width: 768px) {
             .container {
@@ -496,6 +621,7 @@
             }
 
             .date {
+                margin-left: 30%;
                 font-size: 24px;
             }
 
@@ -509,14 +635,47 @@
             }
 
             .search-box {
-                width: 100%;
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                z-index: 1001;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .task-buttons {
                 margin-top: 10px;
+                justify-content: flex-start;
+            }
+
+            .modal-dialog {
+                width: 95%;
+                margin: 5% auto;
             }
         }
+
+
+    
     </style>
 </head>
 
 <body>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-popup">
+            <h2>Login Required</h2>
+            <p>Please login to view this page.</p>
+            <button class="login-btn" onclick="redirectToLogin()">Login</button>
+        </div>
+    </div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
     <div class="container" id="container">
         <div class="sidebar">
             <button class="back-button" onclick="goBack()">
@@ -589,6 +748,15 @@
                     <span class="menu-count">3</span>
                 </div>
             </a>
+            <button class="logout-button" onclick="logout()">
+                <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
         </div>
 
         <div class="main-content">
@@ -657,8 +825,6 @@
         </div>
     </div>
     <script>
-        let editingTask = null;
-
         document.addEventListener('DOMContentLoaded', function () {
             const now = new Date();
             const dateOptions = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -666,8 +832,21 @@
 
             setupEventListeners();
             loadTasksFromLocalStorage();
-            loadUserName(); 
+            loadUserName();
+            checkLoginStatus();
         });
+
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                document.getElementById('loginOverlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'auth.html';
+        }
 
         function loadUserName() {
             const userName = localStorage.getItem('currentUserName');
@@ -690,15 +869,11 @@
                     openModal();
                 });
             });
+        }
 
-            const menuToggle = document.querySelector('.menu-toggle');
+        function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
-
-            if (menuToggle && sidebar) {
-                menuToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('active');
-                });
-            }
+            sidebar.classList.toggle('active');
         }
 
         function openModal() {
@@ -755,18 +930,31 @@
             animateNewTask(newTask);
         }
 
-        function createTaskElement(title, project, priority, reminder) {
+        function createTaskElement(title, project, priority, reminder, completed = false) {
             const newTask = document.createElement('li');
-            newTask.className = 'task-item';
+            newTask.className = `task-item ${completed ? 'completed' : ''}`;
             newTask.innerHTML = `
-        <input type="checkbox" class="task-checkbox">
+        <input type="checkbox" class="task-checkbox" ${completed ? 'checked' : ''}>
         <span class="task-text">${title}</span>
-        <button class="priority-btn ${priority.toLowerCase()}">${getPriorityFlag(priority)} ${priority}</button>
-        <button class="reminder-btn" data-reminder="${reminder}">${getReminderEmoji(reminder)} ${reminder}</button>
-        <button class="update_delete" onclick="editTask(this)">Update</button>
-        <button class="update_delete" onclick="deleteTask(this)">Delete</button>
+        <div class="task-buttons">
+            <button class="priority-btn ${priority.toLowerCase()}">${getPriorityFlag(priority)} ${priority}</button>
+            <button class="reminder-btn" data-reminder="${reminder}">${getReminderEmoji(reminder)} ${reminder}</button>
+            ${completed ? '' : '<button class="update_delete" onclick="editTask(this)">Update</button>'}
+            <button class="update_delete" onclick="deleteTask(this)">Delete</button>
+        </div>
         <span class="task-project">${project}</span>
     `;
+
+            const checkbox = newTask.querySelector('.task-checkbox');
+            checkbox.addEventListener('change', function () {
+                newTask.classList.toggle('completed', this.checked);
+                const updateButton = newTask.querySelector('.update_delete');
+                if (updateButton) {
+                    updateButton.style.display = this.checked ? 'none' : 'inline-block';
+                }
+                updateLocalStorage();
+            });
+
             return newTask;
         }
 
@@ -787,7 +975,7 @@
             const taskTitle = taskItem.querySelector('.task-text').textContent;
             const taskProject = taskItem.querySelector('.task-project').textContent;
             const taskPriority = taskItem.querySelector('.priority-btn').textContent.split(' ')[1];
-            const taskReminder = taskItem.querySelector('.reminder-btn').textContent.split(' ').slice(1).join(' ');
+            const taskReminder = taskItem.querySelector('.reminder-btn').dataset.reminder;
 
             document.getElementById('taskTitle').value = taskTitle;
             document.getElementById('taskProject').value = taskProject;
@@ -816,7 +1004,8 @@
                     title: taskItem.querySelector('.task-text').textContent,
                     project: taskItem.querySelector('.task-project').textContent,
                     priority: taskItem.querySelector('.priority-btn').textContent.split(' ')[1],
-                    reminder: taskItem.querySelector('.reminder-btn').dataset.reminder
+                    reminder: taskItem.querySelector('.reminder-btn').dataset.reminder,
+                    completed: taskItem.classList.contains('completed')
                 };
                 tasks.push(task);
             });
@@ -831,7 +1020,7 @@
             taskList.innerHTML = '';
 
             tasks.forEach((task, index) => {
-                const newTask = createTaskElement(task.title, task.project, task.priority, task.reminder);
+                const newTask = createTaskElement(task.title, task.project, task.priority, task.reminder, task.completed);
                 taskList.appendChild(newTask);
                 setTimeout(() => animateNewTask(newTask), index * 100);
             });
@@ -865,6 +1054,11 @@
                 default:
                     return '⏰';
             }
+        }
+
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+            window.location.href = 'auth.html';
         }
     </script>
 </body>
