@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css?family=Lato:100&display=swap');
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -16,10 +18,12 @@
             background-color: #1f1f1f;
             color: #fff;
         }
+
         .container {
             display: flex;
             height: 100%;
         }
+
         .sidebar {
             width: 250px;
             background-color: #282828;
@@ -29,20 +33,25 @@
             height: 100%;
             transition: transform 0.3s ease-in-out;
         }
+
         .sidebar-item {
             padding: 1px 0;
             color: #ffffffb3;
             text-decoration: none;
             transition: background-color 0.2s ease;
         }
-        .sidebar-item:hover, .sidebar-item.active {
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
             background-color: #363636;
         }
+
         .user-info {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
         }
+
         .user-avatar img {
             width: 30px;
             height: 30px;
@@ -52,6 +61,7 @@
             margin-top: 5px;
             transition: transform 0.2s ease;
         }
+
         .user-avatar img:hover {
             transform: scale(1.1);
         }
@@ -63,7 +73,8 @@
             color: white;
             text-decoration: none;
         }
-        .sidebar a{
+
+        .sidebar a {
             text-decoration: none;
         }
 
@@ -81,9 +92,11 @@
             color: white;
             transition: transform 0.2s ease;
         }
+
         .icon-1:hover {
             transform: scale(1.1);
         }
+
         .add-task {
             background-color: #db4c3f;
             color: white;
@@ -97,10 +110,12 @@
             gap: 10px;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
+
         .add-task:hover {
             background-color: #c53727;
             transform: translateY(-2px);
         }
+
         .add-task-icon {
             margin-right: 5px;
             font-size: 24px;
@@ -108,6 +123,7 @@
             line-height: 1;
             text-align: center;
         }
+
         .menu-item {
             padding: 8px 10px;
             margin-bottom: 2px;
@@ -117,31 +133,38 @@
             border-radius: 5px;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
+
         .menu-item:hover {
             background-color: #2c2c2c;
             transform: translateX(5px);
         }
+
         .menu-item.active {
             background-color: #363636;
         }
+
         .menu-icon {
             width: 20px;
             margin-right: 10px;
             text-align: center;
         }
+
         .menu-text {
             flex-grow: 1;
         }
+
         .menu-count {
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             padding: 2px 6px;
             font-size: 0.8em;
             transition: background-color 0.2s ease;
         }
+
         .menu-item:hover .menu-count {
-            background-color: rgba(255,255,255,0.3);
+            background-color: rgba(255, 255, 255, 0.3);
         }
+
         .section-title {
             font-size: 0.8em;
             color: #777;
@@ -149,6 +172,7 @@
             margin-bottom: 5px;
             padding-left: 10px;
         }
+
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -163,15 +187,18 @@
             transition: background-color 0.2s, color 0.2s, transform 0.2s;
             margin-bottom: 10px;
         }
+
         .back-button:hover {
             background-color: #454545;
             color: #ffffff;
             transform: translateX(-5px);
         }
+
         .back-button svg {
             margin-right: 5px;
             transition: transform 0.2s;
         }
+
         .back-button:hover svg {
             transform: translateX(-3px);
         }
@@ -182,15 +209,23 @@
             overflow-y: auto;
             animation: fadeIn 0.5s ease-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .month-selector {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
+
         .month-selector select {
             background-color: #1f1f1f;
             color: #ffffff;
@@ -199,9 +234,11 @@
             margin-right: 10px;
             transition: background-color 0.2s ease;
         }
+
         .month-selector select:hover {
             background-color: #2c2c2c;
         }
+
         .today-nav {
             display: flex;
             align-items: center;
@@ -209,6 +246,7 @@
             border-radius: 5px;
             padding: 5px;
         }
+
         .today-nav button {
             background: none;
             border: none;
@@ -217,14 +255,17 @@
             padding: 5px 10px;
             transition: color 0.2s ease, transform 0.2s ease;
         }
+
         .today-nav button:hover {
             color: #ffffff;
             transform: scale(1.1);
         }
+
         .today-nav span {
             color: #ffffff;
             padding: 0 10px;
         }
+
         .week-view {
             display: flex;
             justify-content: space-between;
@@ -233,22 +274,34 @@
             padding-bottom: 10px;
             animation: slideIn 0.5s ease-out;
         }
+
         @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
+
         .week-day {
             text-align: center;
             color: #9a9a9a;
             transition: transform 0.2s ease;
         }
+
         .week-day:hover {
             transform: translateY(-5px);
         }
+
         .current-day {
             color: #ffffff;
             font-weight: bold;
         }
+
         .current-day .date {
             background-color: #db4c3f;
             border-radius: 50%;
@@ -260,28 +313,34 @@
             margin: 0 auto;
             transition: transform 0.2s ease;
         }
+
         .current-day .date:hover {
             transform: scale(1.1);
         }
+
         .day-tasks {
             margin-bottom: 20px;
             animation: fadeIn 0.5s ease-out;
         }
+
         .day-header {
             color: #9a9a9a;
             font-size: 14px;
             margin-bottom: 10px;
         }
+
         .add-task-link {
             color: #db4c3f;
             font-size: 14px;
             cursor: pointer;
             transition: color 0.2s ease, transform 0.2s ease;
         }
+
         .add-task-link:hover {
             color: #c53727;
             transform: translateX(5px);
         }
+
         .add-task-link:before {
             content: '+ ';
         }
@@ -300,10 +359,12 @@
             cursor: pointer;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
+
         .menu-toggle:hover {
             background-color: #c53727;
             transform: scale(1.1);
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -326,9 +387,17 @@
             max-width: 500px;
             animation: slideDown 0.3s ease-out;
         }
+
         @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .close {
@@ -340,6 +409,7 @@
             cursor: pointer;
             transition: color 0.2s ease, transform 0.2s ease;
         }
+
         .close:hover {
             color: #ffffff;
             transform: scale(1.1);
@@ -428,9 +498,11 @@
             .menu-toggle {
                 display: block;
             }
+
             .container {
                 flex-direction: column;
             }
+
             .sidebar {
                 width: 100%;
                 transform: translateX(-100%);
@@ -440,35 +512,120 @@
                 height: 100%;
                 z-index: 1000;
             }
+
             .sidebar.active {
                 transform: translateX(0);
             }
+
             .main-content {
                 width: 100%;
             }
         }
+
+        .login-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+        }
+
+        .login-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #282828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 2001;
+        }
+
+        .login-popup h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .login-popup p {
+            margin-bottom: 20px;
+            color: #9a9a9a;
+        }
+
+        .login-btn {
+            background-color: #db4c3f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #e05e52;
+        }
+
+        .logout-button {
+            margin-top: auto;
+            background-color: #363636;
+            color: #9a9a9a;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #454545;
+            color: #ffffff;
+        }
+
+        .logout-icon {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
+
 <body>
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-popup">
+            <h2>Login Required</h2>
+            <p>Please login to view this page.</p>
+            <button class="login-btn" onclick="redirectToLogin()">Login</button>
+        </div>
+    </div>
     <button class="menu-toggle">☰</button>
     <div class="container">
         <div class="sidebar">
             <button class="back-button" onclick="goBack()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
                 Back
             </button>
             <a href="user_profile.html">
-            <div class="user-info">
-                <div class="user-avatar"><img src="images/naruto2.jpeg" alt="Naruto"></div>
-                <span class="user-name">Rachit Goyal</span>
-                <div class="icons">
-                    
-<span class="icon-1">🔔</span>
-                    <span class="icon-1">⚙</span>
+                <div class="user-info">
+                    <div class="user-avatar"><img src="images/naruto2.jpeg" alt="Naruto"></div>
+                    <span class="user-name">Rachit Goyal</span>
+                    <div class="icons">
+
+                        <span class="icon-1">🔔</span>
+                        <span class="icon-1">⚙</span>
+                    </div>
                 </div>
-            </div>
             </a>
             <button class="add-task">
                 <span class="add-task-icon">+</span>
@@ -498,7 +655,7 @@
                     <span class="menu-text">Filters & Labels</span>
                 </div>
             </a>
-            
+
             <div class="section-title">My Projects</div>
             <a href="home.html" class="sidebar-item">
                 <div class="menu-item project">
@@ -521,6 +678,14 @@
                     <span class="menu-count">3</span>
                 </div>
             </a>
+            <button class="logout-button" onclick="logout()">
+                <svg class="logout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
         </div>
 
         <main class="main-content">
@@ -599,6 +764,18 @@
         function goBack() {
             window.history.back();
         }
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                document.getElementById('loginOverlay').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function redirectToLogin() {
+            window.location.href = 'auth.html';
+        }
+
 
         function updateMonthSelect() {
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -626,6 +803,12 @@
                 weekView.appendChild(dayElement);
             }
         }
+        document.querySelector('.logout-button').addEventListener('click', function () {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUserName');
+
+            window.location.href = 'auth.html';
+        });
 
         function updateTasksList() {
             tasksContainer.innerHTML = '';
@@ -735,10 +918,11 @@
             tasks = JSON.parse(localStorage.getItem('tasks')) || [];
             updateView();
             loadUserName();
+            checkLoginStatus();
         });
 
         updateView();
     </script>
 </body>
-</html>
 
+</html>
