@@ -989,6 +989,21 @@
             updateLocalStorage();
             closeModal();
         }
+        window.addEventListener('load', () => {
+            // Check if the page has already been reloaded
+            const hasReloaded = localStorage.getItem('hasReloaded');
+
+            if (!hasReloaded) {
+                // Set the flag in localStorage
+                localStorage.setItem('hasReloaded', 'true');
+
+                // Reload the page
+                location.reload();
+            } else {
+                // Remove the flag to allow reloading next time the user visits
+                localStorage.removeItem('hasReloaded');
+            }
+        });
 
         function updateExistingTask(taskElement, title, project, priority, reminder) {
             taskElement.querySelector('.task-text').textContent = title;
