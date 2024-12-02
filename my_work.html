@@ -662,8 +662,75 @@
             }
         }
 
+        #logoutConfirmation {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-    
+        #logoutConfirmation.show {
+            display: flex;
+            opacity: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #logoutConfirmation .modal-dialog {
+            background-color: #282828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+
+        #logoutConfirmation.show .modal-dialog {
+            transform: translateY(0);
+        }
+
+        #logoutConfirmation h3 {
+            color: #fff;
+            margin-top: 0;
+        }
+
+        #logoutConfirmation button {
+            margin: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        #logoutConfirmation button:hover {
+            transform: translateY(-2px);
+        }
+
+        #logoutConfirmation button:first-of-type {
+            background-color: #db4c3f;
+            color: #fff;
+        }
+
+        #logoutConfirmation button:first-of-type:hover {
+            background-color: #e05e52;
+        }
+
+        #logoutConfirmation button:last-of-type {
+            background-color: #555;
+            color: #fff;
+        }
+
+        #logoutConfirmation button:last-of-type:hover {
+            background-color: #666;
+        }
     </style>
 </head>
 
@@ -824,6 +891,17 @@
             </div>
         </div>
     </div>
+
+    <div id="logoutConfirmation" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h3>Are you sure you want to logout?</h3>
+                <button onclick="confirmLogout()">Yes</button>
+                <button onclick="closeLogoutConfirmation()">No</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const now = new Date();
@@ -1057,6 +1135,26 @@
         }
 
         function logout() {
+            openLogoutConfirmation();
+        }
+
+        function openLogoutConfirmation() {
+            const modal = document.getElementById('logoutConfirmation');
+            modal.classList.add('show');
+            setTimeout(() => {
+                modal.querySelector('.modal-dialog').style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function closeLogoutConfirmation() {
+            const modal = document.getElementById('logoutConfirmation');
+            modal.querySelector('.modal-dialog').style.transform = 'translateY(-50px)';
+            setTimeout(() => {
+                modal.classList.remove('show');
+            }, 300);
+        }
+
+        function confirmLogout() {
             localStorage.setItem('isLoggedIn', 'false');
             window.location.href = 'auth.html';
         }
@@ -1064,3 +1162,4 @@
 </body>
 
 </html>
+
